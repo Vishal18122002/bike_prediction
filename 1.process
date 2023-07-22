@@ -1,0 +1,28 @@
+!pip install tensorflow
+import tensorflow as tf
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+#import the dataset from bike_sharing_daily.csv
+
+temp=pd.read_csv("/content/drive/MyDrive/Colab Notebooks/bike_sharing_daily.csv")
+temp
+
+label=['instant','dteday','temp','windspeed','cnt','registered']# WE ONLY WANT THIS RESPECTIVE COLUMNS ONLY.
+
+#BELOW CODING IS HELPFULL TO RECTIFY THE DATASET BY NULL SET,DESCRIBE ,SHAPE AND INFO
+temp.isnull().sum()
+temp.shape
+temp.info()
+temp.describe()
+sns.heatmap(temp.isnull())#ITS HELPS TO VISIBLE AS HEAT MAP IF THE VARIANCE IN THE MAP IT OCCURS THE NULL SET
+
+bike=temp.drop(labels =['instant','casual','registered'],axis= 1)#DROP THE UNWANTED COLUMNS
+
+bike.dteday=pd.to_datetime(bike.dteday,format ='%m/%d/%Y')# CHANGING THE FORMAT DATE
+
+bike.index=pd.DatetimeIndex(bike.dteday)#BECAUSE THE TRAINING DATA DOESNT ALLOW THE NORMAL FORMAT
+
+bike=bike.drop(labels=['dteday'], axis = 1)
