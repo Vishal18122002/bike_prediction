@@ -1,0 +1,25 @@
+X_numerical = bike[['temp', 'hum', 'windspeed', 'cnt']]
+
+sns.pairplot(X_numerical)
+
+sns.heatmap(X_numerical.corr(), annot =True)
+X_cat = bike[['season', 'yr', 'mnth', 'holiday', 'weekday', 'workingday', 'weathersit']]
+
+from sklearn.preprocessing import OneHotEncoder
+onehotencoder = OneHotEncoder()
+X_cat = onehotencoder.fit_transform(X_cat).toarray()
+
+X_cat.shape
+X_cat = pd.DataFrame(X_cat)
+X_numerical = X_numerical.reset_index()#reset the date and its chanaged as os 1s
+
+X_all = pd.concat([X_cat, X_numerical], axis = 1)
+X_all=X_all.drop('dteday',axis = 1)
+
+x=X_all.iloc[:,:-1].values
+y=X_all.iloc[:,-1:].values
+
+from sklearn.preprocessing import MinMaxScaler
+scalar=MinMaxScaler()# scaling the process because of over deviation
+y=scalar.fit_transform(y)
+y
