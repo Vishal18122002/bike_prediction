@@ -1,0 +1,34 @@
+plt.plot(epochs_hist.history['loss'])
+plt.plot(epochs_hist.history['val_loss'])
+plt.title('media')
+plt.xlabel('as')
+plt.ylabel('sd')
+plt.legend(['training loss','validation'])
+
+y_predict=model.predict(X_test)
+plt.plot(y_test,y_predict,"*",color='r')
+plt.xlabel('model')
+plt.ylabel('true')
+
+y_predict_orig = scalar.inverse_transform(y_predict)
+y_test_orig = scalar.inverse_transform(y_test)
+
+plt.plot(y_test_orig,y_predict_orig,"^",color = 'r')
+plt.xlabel('model')
+plt.ylabel('true')
+
+k=X_test.shape[1]
+n=len(X_test)
+n
+
+
+from sklearn.metrics import r2_score,mean_squared_error,mean_absolute_error
+from math import sqrt
+rmse=float(format(np.sqrt(mean_squared_error(y_test_orig,y_predict_orig)),'.3f'))
+mse=mean_squared_error(y_test_orig,y_predict_orig)
+mae=mean_absolute_error(y_test_orig,y_predict_orig)
+r2=r2_score(y_test_orig,y_predict_orig)
+adi_r2=1-(1-r2)*(n-1)/(n-k-1)
+print('RMSE =',rmse, '\nMSE =',mse, '\nMAE=',mae, '\nR2 =',r2, '\nADI_R2=',adi_r2)
+
+
