@@ -1,0 +1,20 @@
+#DATA VISUALIZE
+
+bike['cnt'].asfreq('M').plot(linewidth = 3)
+plt.title('bike usage per week')
+plt.xlabel('week')
+plt.ylabel('bike rendal')
+
+
+bike['cnt'].asfreq('W').plot(linewidth = 3)
+plt.title('bike usage per week')
+plt.xlabel('week')
+plt.ylabel('bike rendal')
+
+
+bike['cnt'].asfreq('Q').plot(linewidth = 3)
+plt.title('bike usage per week')
+plt.xlabel('week')
+plt.ylabel('bike rendal')
+
+sns.pairplot(bike)#PAIR PLOT HELPS TO PAIR EACH OF IT AND VISUALIZE
